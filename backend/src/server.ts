@@ -16,6 +16,7 @@ import auditRoutes from './routes/audit';
 import alertRoutes from './routes/alerts';
 import realtimeRoutes from './routes/realtime';
 import workflowExecutionRoutes from './routes/workflow-executions';
+import webhookRoutes from './routes/webhooks';
 
 // Import database
 import { initDatabase } from './database/init';
@@ -74,6 +75,7 @@ app.use('/api/audit', auditRoutes);
 app.use('/api/alerts', alertRoutes);
 app.use('/api/realtime', realtimeRoutes);
 app.use('/api/workflow-executions', workflowExecutionRoutes);
+app.use('/api/webhooks', webhookRoutes);
 
 // WebSocket connection handling
 io.on('connection', (socket) => {
