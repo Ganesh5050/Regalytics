@@ -4,7 +4,7 @@ import axios from 'axios';
 const router = Router();
 
 // n8n webhook URL
-const N8N_WEBHOOK_URL = 'https://gpan.app.n8n.cloud/webhook/regalytics-kyc-webhook';
+const N8N_WEBHOOK_URL = 'https://n8n-production-a364.up.railway.app/webhook/regalytics-kyc-webhook';
 
 // KYC webhook endpoint
 router.post('/kyc', async (req, res) => {
