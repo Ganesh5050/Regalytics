@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Premium Enterprise Financial CRM Design System */
+
+@layer base {
+  :root {
+    /* Enterprise Blue Palette - All colors in HSL format (fixed to true HSL values) */
+    --background: 210 40% 98%; /* slate-50 */
+    --foreground: 222 47% 11%; /* slate-900 */
+
+    /* Glass Card System */
+    --card: 0 0% 100%; /* white */
+    --card-foreground: 222 47% 11%; /* slate-900 */
+
+    --popover: 0 0% 100%; /* white */
+    --popover-foreground: 222 47% 11%; /* slate-900 */
+
+    /* Corporate Blue Primary */
+    --primary: 221 83% 53%; /* blue-600 */
+    --primary-foreground: 210 40% 98%; /* slate-50 */
+    --primary-hover: 221 71% 45%; /* blue-700 */
+
+    /* Subtle Secondary */
+    --secondary: 210 40% 96%; /* slate-100 */
+    --secondary-foreground: 215 25% 45%; /* slate-700 */
+
+    /* Muted Tones */
+    --muted: 210 40% 96%; /* slate-100 */
+    --muted-foreground: 215 16% 47%; /* slate-500 */
+
+    /* Accent for highlights */
+    --accent: 221 83% 53%; /* blue-600 - EXACT same as primary */
+    --accent-foreground: 210 40% 98%; /* slate-50 */
+
+    /* Status Colors */
+    --success: 142 76% 36%; /* green-600 */
+    --success-foreground: 210 40% 98%; /* slate-50 */
+    --warning: 47 95% 54%; /* yellow-500 */
+    --warning-foreground: 222 47% 11%; /* slate-900 */
+    --destructive: 0 84% 60%; /* red-500 */
+    --destructive-foreground: 210 40% 98%; /* slate-50 */
+
+    /* Borders & Inputs */
+    --border: 214 32% 91%; /* slate-200 */
+    --input: 214 32% 91%; /* slate-200 */
+    --ring: 221 83% 53%; /* blue-600 */
+
+    /* Glass Effect Variables */
+    --glass-bg: 0 0% 100%;
+    --glass-border: 0 0% 100%;
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --glass-backdrop: blur(8px);
+
+    /* Premium Shadows */
+    --shadow-soft: 0 2px 8px -2px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 4px 16px -4px rgba(0, 0, 0, 0.1);
+    --shadow-large: 0 12px 32px -8px rgba(0, 0, 0, 0.15);
+
+    /* Sidebar Enterprise Theme */
+    --sidebar-background: 210 40% 98%; /* slate-50 */
+    --sidebar-foreground: 215 25% 45%; /* slate-700 */
+    --sidebar-primary: 221 83% 53%; /* blue-600 */
+    --sidebar-primary-foreground: 210 40% 98%; /* slate-50 */
+    --sidebar-accent: 210 40% 96%; /* slate-100 */
+    --sidebar-accent-foreground: 215 25% 45%; /* slate-700 */
+    --sidebar-border: 214 32% 91%; /* slate-200 */
+    --sidebar-ring: 221 83% 53%; /* blue-600 */
+
+    --radius: 0.75rem;
+
+    /* Animation Variables */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-micro: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Dark Mode Enterprise Theme - All colors in HSL format */
+    --background: 222 47% 7%; /* slate-950 */
+    --foreground: 210 40% 96%; /* slate-100 */
+
+    --card: 222 47% 11%; /* slate-900 */
+    --card-foreground: 210 40% 96%; /* slate-100 */
+
+    --popover: 222 47% 11%; /* slate-900 */
+    --popover-foreground: 210 40% 96%; /* slate-100 */
+
+    /* Corporate Blue Primary */
+    --primary: 217 91% 60%; /* blue-500 */
+    --primary-foreground: 222 47% 7%; /* slate-950 */
+    --primary-hover: 213 94% 68%; /* blue-400 */
+
+    /* Subtle Secondary */
+    --secondary: 217 33% 17%; /* slate-800 */
+    --secondary-foreground: 210 40% 80%; /* slate-300 */
+
+    /* Muted Tones */
+    --muted: 217 33% 17%; /* slate-800 */
+    --muted-foreground: 215 16% 47%; /* slate-500 */
+
+    /* Accent for highlights */
+    --accent: 217 91% 60%; /* blue-500 - EXACT same as primary */
+    --accent-foreground: 222 47% 7%; /* slate-950 */
+
+    /* Status Colors */
+    --success: 142 71% 45%; /* green-500 */
+    --success-foreground: 210 40% 96%; /* slate-50 */
+    --warning: 47 95% 54%; /* yellow-500 */
+    --warning-foreground: 222 47% 11%; /* slate-900 */
+    --destructive: 0 84% 60%; /* red-500 */
+    --destructive-foreground: 210 40% 96%; /* slate-50 */
+
+    /* Borders & Inputs */
+    --border: 217 33% 17%; /* slate-800 */
+    --input: 217 33% 17%; /* slate-800 */
+    --ring: 217 91% 60%; /* blue-500 */
+
+    /* Dark Glass Effects */
+    --glass-bg: 222 47% 11%;
+    --glass-border: 0 0% 100%;
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+    /* Dark Sidebar */
+    --sidebar-background: 222 47% 7%; /* slate-950 */
+    --sidebar-foreground: 210 40% 80%; /* slate-300 */
+    --sidebar-primary: 217 91% 60%; /* blue-500 */
+    --sidebar-primary-foreground: 222 47% 7%; /* slate-950 */
+    --sidebar-accent: 217 33% 17%; /* slate-800 */
+    --sidebar-accent-foreground: 210 40% 80%; /* slate-300 */
+    --sidebar-border: 217 33% 17%; /* slate-800 */
+    --sidebar-ring: 217 91% 60%; /* blue-500 */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background-color: hsl(var(--glass-bg) / 0.8);
+    border: 1px solid hsl(var(--glass-border) / 0.2);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: var(--glass-backdrop);
+    -webkit-backdrop-filter: var(--glass-backdrop);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-micro {
+    transition: var(--transition-micro);
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+  
+  .animate-slide-in {
+    animation: slide-in-right 0.4s ease-out forwards;
+  }
+}
