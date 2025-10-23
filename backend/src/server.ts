@@ -20,6 +20,7 @@ import webhookRoutes from './routes/webhooks';
 
 // Import database
 import { initDatabase } from './database/init';
+import { initPostgresDatabase } from './database/init-postgres';
 
 // Import real-time service
 import { RealTimeDataService } from './services/RealTimeDataService';
@@ -106,8 +107,14 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 // Initialize database and start server
 async function startServer() {
   try {
-    await initDatabase();
-    console.log('Database initialized successfully');
+    // Use PostgreSQL if DATABASE_URL is set (Render), otherwise SQLite (Railway/Local)
+    if (process.env.DATABASE_URL) {
+      await initPostgresDatabase();
+      console.log('PostgreSQL database initialized successfully');
+    } else {
+      await initDatabase();
+      console.log('SQLite database initialized successfully');
+    }
     
     // Start real-time data service
     const realTimeService = RealTimeDataService.getInstance();
