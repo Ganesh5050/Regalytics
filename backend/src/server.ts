@@ -50,13 +50,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Make io available to routes
-app.use((req: any, res, next) => {
+app.use((req: any, res: express.Response, next: express.NextFunction) => {
   req.io = io;
   next();
 });
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (req: express.Request, res: express.Response) => {
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
