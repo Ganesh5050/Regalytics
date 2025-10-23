@@ -1,0 +1,51 @@
+# Render Blueprint Configuration
+# This deploys the backend to Render as a backup/alternative to Railway
+
+services:
+  # Backend API Service
+  - type: web
+    name: regalytics-backend
+    runtime: node
+    region: oregon  # Change to your preferred region (oregon, frankfurt, singapore, etc.)
+    plan: free  # Options: free, starter, standard, pro
+    branch: main  # Deploy from main branch
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_SECRET
+        generateValue: true  # Auto-generates a secure secret
+      - key: DATABASE_URL
+        fromDatabase:
+          name: regalytics-db
+          property: connectionString
+    autoDeploy: true  # Auto-deploy on git push
+
+  # PostgreSQL Database (Required for Render - SQLite won't work)
+databases:
+  - name: regalytics-db
+    databaseName: regalytics
+    user: regalytics
+    plan: free  # Free tier: 90 days, then $7/month
+    region: oregon  # Same region as backend for low latency
+    ipAllowList: []  # Empty = accessible from anywhere
+
+# Notes:
+# 1. SQLite won't work on Render (ephemeral filesystem)
+# 2. This creates a PostgreSQL database automatically
+# 3. DATABASE_URL is auto-injected into your backend
+# 4. Free tier limitations:
+#    - Database: Expires after 90 days (then $7/month)
+#    - Web Service: 750 hours/month free
+#    - Sleeps after 15 min inactivity
+# 5. To deploy:
+#    - Push this file to your repo
+#    - Go to render.com → New → Blueprint
+#    - Connect your repo
+#    - Click "Apply"
+
