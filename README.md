@@ -259,3 +259,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Built with ❤️ by the Regalytics Team**
+
+## 🚀 Deployment Status
+- **Frontend**: Deployed on Vercel
+- **Backend**: Dual deployment (Railway + Render)
+- **Database**: SQLite (Railway) + PostgreSQL (Render)
+- **Last Updated**: $(date)
