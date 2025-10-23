@@ -26,7 +26,7 @@ services:
           property: connectionString
     autoDeploy: true  # Auto-deploy on git push
 
-  # PostgreSQL Database (Required for Render - SQLite won't work)
+# PostgreSQL Database (Required for Render - SQLite won't work)
 databases:
   - name: regalytics-db
     databaseName: regalytics
