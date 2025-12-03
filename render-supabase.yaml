@@ -1,0 +1,63 @@
+# Render Blueprint Configuration with Supabase Database
+# This deploys the backend to Render using Supabase as free PostgreSQL database
+
+services:
+  # Backend API Service 1
+  - type: web
+    name: regalytics-backend
+    runtime: node
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        value: YOUR_SUPABASE_DATABASE_URL_HERE  # Replace with actual Supabase URL
+      - key: SUPABASE_URL
+        value: YOUR_SUPABASE_URL_HERE  # Replace with actual Supabase URL
+      - key: SUPABASE_ANON_KEY
+        value: YOUR_SUPABASE_ANON_KEY_HERE  # Replace with actual Supabase key
+    autoDeploy: true
+
+  # Backend API Service 2 (backup)
+  - type: web
+    name: regalytics-api
+    runtime: node
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        value: YOUR_SUPABASE_DATABASE_URL_HERE  # Replace with actual Supabase URL
+      - key: SUPABASE_URL
+        value: YOUR_SUPABASE_URL_HERE  # Replace with actual Supabase URL
+      - key: SUPABASE_ANON_KEY
+        value: YOUR_SUPABASE_ANON_KEY_HERE  # Replace with actual Supabase key
+    autoDeploy: true
+
+# NO DATABASE SECTION - Using Supabase instead
+
+# Notes:
+# 1. Using Supabase instead of Render PostgreSQL (100% free)
+# 2. Supabase offers unlimited bandwidth, 500MB database storage
+# 3. No time limit, no credit card required for free tier
+# 4. Replace YOUR_* values with actual Supabase credentials
