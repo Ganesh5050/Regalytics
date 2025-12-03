@@ -5,11 +5,14 @@ export default {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
+<<<<<<< HEAD
   safelist: [
     {
       pattern: /^(rounded|shadow|bg|text)-/,
     },
   ],
+=======
+>>>>>>> c68809e0b25b1283df18d4277096f17da796c305
   theme: {
     container: {
       center: true,

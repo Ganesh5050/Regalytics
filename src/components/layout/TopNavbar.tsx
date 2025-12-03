@@ -32,10 +32,17 @@ export function TopNavbar() {
           
           {/* Global Search - Hidden on mobile, visible on tablet+ */}
           <div className="relative hidden md:block md:w-64 lg:w-96 max-w-sm">
+<<<<<<< HEAD
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
             <Input 
               placeholder="Search clients, transactions, reports..."
               className="pl-9 bg-[rgb(245,245,245)] text-blue-600 placeholder:text-gray-400 border-0 rounded-[10px] shadow-[rgba(158,158,158,0.69)_0px_0.706592px_0.706592px_-0.583333px,rgba(158,158,158,0.68)_0px_1.80656px_1.80656px_-1.16667px,rgba(158,158,158,0.65)_0px_3.62176px_3.62176px_-1.75px,rgba(158,158,158,0.61)_0px_6.8656px_6.8656px_-2.33333px,rgba(158,158,158,0.52)_0px_13.6468px_13.6468px_-2.91667px,rgba(158,158,158,0.3)_0px_30px_30px_-3.5px,rgb(255,255,255)_0px_3px_1px_0px_inset] focus:shadow-[rgba(158,158,158,0.69)_0px_0.706592px_0.706592px_-0.583333px,rgba(158,158,158,0.68)_0px_1.80656px_1.80656px_-1.16667px,rgba(158,158,158,0.65)_0px_3.62176px_3.62176px_-1.75px,rgba(158,158,158,0.61)_0px_6.8656px_6.8656px_-2.33333px,rgba(158,158,158,0.52)_0px_13.6468px_13.6468px_-2.91667px,rgba(158,158,158,0.3)_0px_30px_30px_-3.5px,rgb(255,255,255)_0px_2px_0.5px_0px_inset] transition-all"
+=======
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input 
+              placeholder="Search clients, transactions, reports..."
+              className="pl-9 bg-muted/50 border-border/50 focus:bg-background transition-micro"
+>>>>>>> c68809e0b25b1283df18d4277096f17da796c305
             />
           </div>
         </div>
