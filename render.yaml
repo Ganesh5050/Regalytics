@@ -2,7 +2,7 @@
 # This deploys the backend to Render as a backup/alternative to Railway
 
 services:
-  # Backend API Service
+  # Backend API Service 1
   - type: web
     name: regalytics-backend
     runtime: node
@@ -22,13 +22,37 @@ services:
         generateValue: true  # Auto-generates a secure secret
       - key: DATABASE_URL
         fromDatabase:
-          name: regalytics-db
+          name: regalytics-database
           property: connectionString
     autoDeploy: true  # Auto-deploy on git push
 
+  # Backend API Service 2 (backup)
+  - type: web
+    name: regalytics-api
+    runtime: node
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: regalytics-database
+          property: connectionString
+    autoDeploy: true
+
 # PostgreSQL Database (Required for Render - SQLite won't work)
 databases:
-  - name: regalytics-db
+  - name: regalytics-database
     databaseName: regalytics
     user: regalytics
     plan: free  # Free tier: 90 days, then $7/month
