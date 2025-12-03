@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { PWAInstallPrompt } from "@/components/common/PWAInstallPrompt";
+import { BackendStatus } from "@/components/ui/BackendStatus";
 
 // Pages
 import Login from "./pages/Login";
@@ -163,6 +164,7 @@ const App = () => (
           </Routes>
         </AuthProvider>
         <PWAInstallPrompt />
+        <BackendStatus />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

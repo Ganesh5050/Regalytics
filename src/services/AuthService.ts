@@ -1,4 +1,6 @@
-// Mock authentication service - replace with real API calls
+// Authentication service with automatic Railway → Render failover
+import { fallbackApiService } from './FallbackApiService';
+
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -18,26 +20,16 @@ export interface AuthResponse {
 }
 
 class AuthService {
-  private baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
-      const response = await fetch(`${this.baseUrl}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Login failed');
-      }
-
-      const data = await response.json();
+      console.log('🔐 Attempting login with fallback API...');
+      
+      const data = await fallbackApiService.post<any>('/auth/login', credentials);
       
       if (data.success) {
+        // Store auth token
+        localStorage.setItem('auth_token', data.token);
+        
         // Transform backend user data to frontend format
         const user = {
           id: data.user.id.toString(),
@@ -51,12 +43,16 @@ class AuthService {
           lastLogin: new Date().toISOString()
         };
 
-        return { success: true, user, token: data.token };
+        // Store user data
+        localStorage.setItem('user', JSON.stringify(user));
+
+        console.log('✅ Login successful via', fallbackApiService.getCurrentBackend().name);
+        return { user, token: data.token };
       }
       
-      throw new Error('Login failed');
+      throw new Error(data.error || 'Login failed');
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('❌ Login error:', error);
       throw error;
     }
   }
@@ -142,23 +138,13 @@ class AuthService {
 
   async validateToken(token: string): Promise<AuthResponse['user']> {
     try {
-      const response = await fetch(`${this.baseUrl}/auth/verify`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Invalid token');
-      }
-
-      const data = await response.json();
+      console.log('🔍 Validating token with fallback API...');
+      
+      const data = await fallbackApiService.get<any>('/auth/verify');
       
       if (data.success) {
         // Transform backend user data to frontend format
-        return {
+        const user = {
           id: data.user.id.toString(),
           email: data.user.email,
           name: `${data.user.firstName} ${data.user.lastName}`,
@@ -169,47 +155,57 @@ class AuthService {
           avatar: undefined,
           lastLogin: new Date().toISOString()
         };
+
+        console.log('✅ Token validation successful via', fallbackApiService.getCurrentBackend().name);
+        return user;
       }
       
       throw new Error('Token validation failed');
     } catch (error) {
-      console.error('Token validation error:', error);
+      console.error('❌ Token validation error:', error);
       throw error;
     }
   }
 
   async logout(): Promise<void> {
     try {
-      const token = localStorage.getItem('token');
+      console.log('🚪 Logging out with fallback API...');
       
-      if (token) {
-        await fetch(`${this.baseUrl}/auth/logout`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-      }
+      await fallbackApiService.post<any>('/auth/logout');
       
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      console.log('✅ Logout successful via', fallbackApiService.getCurrentBackend().name);
     } catch (error) {
-      console.error('Logout error:', error);
-      // Still clear local storage even if API call fails
-      localStorage.removeItem('token');
+      console.error('❌ Logout error:', error);
+      // Continue with local cleanup even if API call fails
+    } finally {
+      // Always clear local storage
+      localStorage.removeItem('auth_token');
       localStorage.removeItem('user');
     }
   }
 
   async refreshToken(token: string): Promise<{ token: string }> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    try {
+      console.log('🔄 Refreshing token with fallback API...');
+      
+      const data = await fallbackApiService.post<any>('/auth/refresh', { token });
+      
+      console.log('✅ Token refresh successful via', fallbackApiService.getCurrentBackend().name);
+      return { token: data.token };
+    } catch (error) {
+      console.error('❌ Token refresh error:', error);
+      throw error;
+    }
+  }
 
-    // In a real app, this would refresh the token
-    const newToken = `mock_token_${token.split('_')[2]}_${Date.now()}`;
-    
-    return { token: newToken };
+  // Get current backend status
+  getBackendStatus() {
+    return fallbackApiService.getBackendsStatus();
+  }
+
+  // Force health check of all backends
+  async forceHealthCheck() {
+    await fallbackApiService.forceHealthCheck();
   }
 }
 
