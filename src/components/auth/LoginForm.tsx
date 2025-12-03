@@ -81,11 +81,11 @@ export function LoginForm() {
             )}
             
             <div className="space-y-2">
-<<<<<<< HEAD
+
               <Label htmlFor="email" className="text-black">Email</Label>
-=======
+
               <Label htmlFor="email">Email</Label>
->>>>>>> c68809e0b25b1283df18d4277096f17da796c305
+
               <Input
                 id="email"
                 type="email"
@@ -94,19 +94,19 @@ export function LoginForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={isLoading}
-<<<<<<< HEAD
+
                 className="bg-white text-black placeholder:text-gray-400"
-=======
->>>>>>> c68809e0b25b1283df18d4277096f17da796c305
+
+
               />
             </div>
             
             <div className="space-y-2">
-<<<<<<< HEAD
+
               <Label htmlFor="password" className="text-black">Password</Label>
-=======
+
               <Label htmlFor="password">Password</Label>
->>>>>>> c68809e0b25b1283df18d4277096f17da796c305
+
               <div className="relative">
                 <Input
                   id="password"
@@ -116,10 +116,10 @@ export function LoginForm() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   disabled={isLoading}
-<<<<<<< HEAD
+
                   className="bg-white text-black placeholder:text-gray-400"
-=======
->>>>>>> c68809e0b25b1283df18d4277096f17da796c305
+
+
                 />
                 <Button
                   type="button"
@@ -138,11 +138,11 @@ export function LoginForm() {
               </div>
             </div>
             
-<<<<<<< HEAD
+
             <Button type="submit" variant="black" className="w-full" disabled={isLoading}>
-=======
+
             <Button type="submit" className="w-full" disabled={isLoading}>
->>>>>>> c68809e0b25b1283df18d4277096f17da796c305
+
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
