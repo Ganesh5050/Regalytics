@@ -29,7 +29,7 @@ class FallbackApiService {
 
   private currentBackend: BackendConfig;
   private healthCheckInterval = 30000; // 30 seconds
-  private healthCheckTimeout: NodeJS.Timeout | null = null;
+  private healthCheckTimeout: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
     // Start with Railway as primary

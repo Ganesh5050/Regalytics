@@ -31,13 +31,13 @@ class AuthService {
         localStorage.setItem('auth_token', data.token);
         
         // Transform backend user data to frontend format
-        const user = {
+        const user: AuthResponse['user'] = {
           id: data.user.id.toString(),
           email: data.user.email,
           name: `${data.user.firstName} ${data.user.lastName}`,
-          role: data.user.role === 'admin' ? 'admin' : 
+          role: (data.user.role === 'admin' ? 'admin' : 
                 data.user.role === 'compliance_officer' ? 'compliance_officer' :
-                data.user.role === 'analyst' ? 'analyst' : 'viewer',
+                data.user.role === 'analyst' ? 'analyst' : 'viewer') as 'admin' | 'compliance_officer' | 'analyst' | 'viewer',
           permissions: this.getPermissionsForRole(data.user.role),
           avatar: undefined,
           lastLogin: new Date().toISOString()
@@ -144,13 +144,13 @@ class AuthService {
       
       if (data.success) {
         // Transform backend user data to frontend format
-        const user = {
+        const user: AuthResponse['user'] = {
           id: data.user.id.toString(),
           email: data.user.email,
           name: `${data.user.firstName} ${data.user.lastName}`,
-          role: data.user.role === 'admin' ? 'admin' : 
+          role: (data.user.role === 'admin' ? 'admin' : 
                 data.user.role === 'compliance_officer' ? 'compliance_officer' :
-                data.user.role === 'analyst' ? 'analyst' : 'viewer',
+                data.user.role === 'analyst' ? 'analyst' : 'viewer') as 'admin' | 'compliance_officer' | 'analyst' | 'viewer',
           permissions: this.getPermissionsForRole(data.user.role),
           avatar: undefined,
           lastLogin: new Date().toISOString()
